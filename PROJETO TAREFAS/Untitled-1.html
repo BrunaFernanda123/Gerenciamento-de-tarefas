@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Clientes</title>
+    <style>
+        h1 {
+            font-size: 60px;
+            font-weight: bold;
+            text-align: center;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #f5f5f5;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #a0ddec;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #99d7fc;
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        button {
+            width: 30%;
+            padding: 10px;
+            background-color: #a0ddec;
+            border: none;
+            color: rgb(15, 14, 14);
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #99d7fc;
+        }
+        table {
+            width: 100%;
+            margin-top: 40px;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+    <script>
+        const clientes = [
+
+          
+        ];
+
+        function cadastrarCliente(event) {
+            event.preventDefault();
+            const numero = document.getElementById('numero').value;
+            const peso = document.getElementById('peso').value;
+            const fornecedor = document.getElementById('fornecedor').value;
+            const cor = document.getElementById('cor').value;
+
+            const novoCliente = { numero, peso, fornecedor, cor };
+            clientes.push(novoCliente);
+            atualizarTabela();
+            document.querySelector('form').reset();
+        }
+
+        function atualizarTabela() {
+            const tabela = document.getElementById('tabela-clientes');
+            tabela.innerHTML = `
+                <tr>
+                    <th>Número</th>
+                    <th>Peso</th>
+                    <th>Fornecedor</th>
+                    <th>Cor</th>
+                    <th>Ação</th>
+                </tr>
+            `;
+
+            clientes.forEach(cliente => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${cliente.numero}</td>
+                    <td>${cliente.peso}</td>
+                    <td>${cliente.fornecedor}</td>
+                    <td>${cliente.cor}</td>
+                    <td><button type="button" onclick="alert('Ação para ${cliente.numero} acionada!')">Ação</button></td>
+                `;
+                tabela.appendChild(row);
+            });
+        }
+
+        function consultar() {
+            const consultaNumero = document.querySelector('input[name="consulta_numero"]').value;
+            const resultado = clientes.find(cliente => cliente.numero === consultaNumero);
+            const resultadoCell = document.querySelector('#resultado-consulta');
+
+            if (resultado) {
+                resultadoCell.innerHTML = `
+                    <td>${resultado.numero}</td>
+                    <td>${resultado.peso}</td>
+                    <td>${resultado.fornecedor}</td>
+                    <td>${resultado.cor}</td>
+                    
+                `;
+            } else {
+                resultadoCell.innerHTML = <td colspan="5">Cliente não encontrado</td>;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Cadastro</h1>
+    <div class="container">
+        <h2>Cadastro do Cliente</h2>
+        <form onsubmit="cadastrarCliente(event)">
+            <label for="numero">Número:</label>
+            <input type="text" id="numero" name="numero" required>
+
+            <label for="peso">Peso:</label>
+            <input type="text" id="peso" name="peso" required>
+
+            <label for="fornecedor">Fornecedor:</label>
+            <input type="text" id="fornecedor" name="fornecedor" required>
+
+            <label for="cor">Cor:</label>
+            <input type="text" id="cor" name="cor" required>
+
+            <input type="submit" value="Cadastrar">
+        </form>
+
+        <div class="button-group">
+            <button type="button" onclick="alert('Alteração acionada!')">Alterar</button>
+            <button type="button" onclick="alert('Exclusão acionada!')">Excluir</button>
+            <button type="button" onclick="consultar()">Consultar</button>
+        </div>
+
+        <h2>Lista de Clientes</h2>
+        <table id="tabela-clientes">
+            <tr>
+                <th>Número</th>
+                <th>Peso</th>
+                <th>Fornecedor</th>
+                <th>Cor</th>
+                <th>Ação</th>
+            </tr>
+        </table>
+
+        <h2>Consulta Cliente</h2>
+        <table>
+            <tr>
+                <td>
+                    <form action="#" method="post">
+                        <input type="text" name="consulta_numero" placeholder="Número" required>
+                    </form>
+                </td>
+                <td colspan="4" id="resultado-consulta">Resultados da consulta aparecerão aqui</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
