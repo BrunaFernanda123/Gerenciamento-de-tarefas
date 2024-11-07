@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela com Tabelas de gerenciamento</title>
+    <script>
+        function atualizarTabela() {
+            var opcaoSelecionada = document.getElementById('opcao').value;
+
+            var combinacoes = {
+                'opcao1': [
+                    {status: 'Em andamento', usuarioCodigo: '1'},
+                    {status: 'Em andamento', usuarioCodigo: '2'},
+                    {status: 'Em andamento', usuarioCodigo: '3'}
+                ],
+                'opcao2': [
+                    {status: 'Pendente', usuarioCodigo: '4'},
+                    {status: 'Pendente', usuarioCodigo: '5'},
+                    {status: 'Pendente', usuarioCodigo: '6'}
+                ],
+                'opcao3': [
+                    {status: 'Concluído', usuarioCodigo: '7'},
+                    {status: 'Concluído', usuarioCodigo: '8'},
+                    {status: 'Concluído', usuarioCodigo: '9'}
+                ]
+            };
+
+            var combinacao = combinacoes[opcaoSelecionada] || [];
+
+            var linhas = document.querySelectorAll('table tbody tr');
+
+            linhas.forEach(function(linha, index) {
+                if (index < combinacao.length) {
+                    linha.cells[3].textContent = combinacao[index].status;
+                    linha.cells[4].textContent = combinacao[index].usuarioCodigo;
+                }
+            });
+        }
+
+        // Função para editar o status
+        function editarStatus(linha) {
+            var statusCell = linha.cells[3];
+            var usuarioCodigoCell = linha.cells[4];
+            
+            // Cria um prompt para editar o status e o código do usuário
+            var novoStatus = prompt("Digite o novo status:", statusCell.textContent);
+            if (novoStatus !== null) {
+                statusCell.textContent = novoStatus;
+            }
+
+            var novoCodigo = prompt("Digite o novo código do usuário:", usuarioCodigoCell.textContent);
+            if (novoCodigo !== null) {
+                usuarioCodigoCell.textContent = novoCodigo;
+            }
+        }
+
+        // Função para excluir o status e o código do usuário
+        function excluirStatus(linha) {
+            linha.cells[3].textContent = '';  // Apaga o status
+            linha.cells[4].textContent = '';  // Apaga o código do usuário
+        }
+    </script>
+</head>
+<body>
+
+    <h1>Gerenciamento de Tarefas</h1>
+
+    <label for="opcao">Escolha uma opção:</label>
+    <select id="opcao" name="opcao" onchange="atualizarTabela()">
+        <option value="opcao1">Opção 1</option>
+        <option value="opcao2">Opção 2</option>
+        <option value="opcao3">Opção 3</option>
+    </select>
+
+    <hr>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Setor</th>
+                <th>Prioridade</th>
+                <th>Descrição</th>
+                <th>Status</th>
+                <th>Usuário código</th>
+                <th>Ações</th> <!-- Coluna para botões -->
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>TI</td>
+                <td>Baixa</td>
+                <td>Configuração de servidores</td>
+                <td></td> 
+                <td></td>
+                <td>
+                    <button onclick="editarStatus(this.closest('tr'))">Editar</button>
+                    <button onclick="excluirStatus(this.closest('tr'))">Excluir</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Tecnologia</td>
+                <td>Média</td>
+                <td>Resolução de problemas</td>
+                <td></td> 
+                <td></td>
+                <td>
+                    <button onclick="editarStatus(this.closest('tr'))">Editar</button>
+                    <button onclick="excluirStatus(this.closest('tr'))">Excluir</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Desenvolvimento</td>
+                <td>Alta</td>
+                <td>Aplicativos e sistemas</td>
+                <td></td> 
+                <td></td>
+                <td>
+                    <button onclick="editarStatus(this.closest('tr'))">Editar</button>
+                    <button onclick="excluirStatus(this.closest('tr'))">Excluir</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
+

@@ -182,43 +182,5 @@
  
 </body>
 
-<script type="text/javascript" language="javascript" src="jquery-1.3.2.js">
-</script>
-  <script type="text/javascript" language="javascript">
-   $(function($) {
-	// Quando o formulário for enviado, essa função é chamada
-	$("#POST").submit(function() {
-		// Colocamos os valores de cada campo em uma váriavel para facilitar a manipulação
-		var id = $("#id").val();
-        var cidnome = $("#cidnome").val();
-		var ciduf = $("#ciduf").val();	
-		// Fazemos a requisão ajax com o arquivo envia.php e enviamos os valores de cada campo através do método POST
-		$.get('update_cidades.php', {id: id, cidnome: cidnome, ciduf: ciduf}, function(resposta) {
-				// Quando terminada a requisição
-				
-                // Exibe a div status
-				$("#status").slideDown();
-				
-                // Se a resposta é um erro
-				if (resposta != false) {
-					// Exibe o erro na div
-					$("#status").html(resposta);
-				} 
-				// Se resposta for false, ou seja, não ocorreu nenhum erro
-				else {
-					// Exibe mensagem de sucesso
-					$("#status").html("Alteração Efetuado com sucesso!");
-										
-					// Limpando todos os campos
-					$("#depnome").val("");
-					$("#localização").val("");
-					
-					
-				}
-		});
-	});
-});
-</script> 
-
  
 </html>

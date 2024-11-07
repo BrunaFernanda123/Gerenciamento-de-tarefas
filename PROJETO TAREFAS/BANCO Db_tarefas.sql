@@ -27,7 +27,7 @@ VALUES ('Bruna','Bruna9@gmail.com'),
 INSERT INTO tarefas (setor,prioridade,descrição,status,usuario_codigo)
 VALUES
 ('TI', 'Baixa','Configuração de servidores','Em andamento', '1'),
-('tecnologia', 'média', 'resolução de pronlemas','Pendente', '2'),
+('tecnologia', 'média', 'resolução de problemas','Pendente', '2'),
 ('desenvolvimento', 'alta', 'aplicativos e sistema ','concluída', '3');
  
 
